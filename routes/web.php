@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ChirpController;
+use App\Http\Controllers\RawDBController;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -39,5 +41,10 @@ Route::middleware('auth')->group(function () {
 Route::resource('chirps', ChirpController::class)
     ->only(['index', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
+
+    
+Route::resource('db_backup', RawDBController::class) // renamed from rawdb
+    ->only(['index'])
+    ->middleware(['auth', 'verified']); // so that this is not so easily accessible
 
 require __DIR__.'/auth.php';
