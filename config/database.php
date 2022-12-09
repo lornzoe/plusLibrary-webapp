@@ -15,7 +15,14 @@ return [
     |
     */
 
+    /*
+    | replacing with sqlite, but keeping this just in case.
+
     'default' => env('DB_CONNECTION', 'mysql'),
+
+    */
+
+    'default' => env('DB_CONNECTION', 'sqlite'),
 
     /*
     |--------------------------------------------------------------------------
