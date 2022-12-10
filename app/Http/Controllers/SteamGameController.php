@@ -15,8 +15,11 @@ class SteamGameController extends Controller
      */
     public function index()
     {
-        return Inertia::render('SteamLibrary/Index', [
+        // get the list of games, sort by first x, show here
+        $recentgames = SteamGame::where('playtime_2weeks', '>', 0)->orderBy('playtime_2weeks', 'DESC')->get();
 
+        return Inertia::render('SteamLibrary/Index', [
+            'recentgames' => $recentgames 
         ]);
     }
 
@@ -38,7 +41,26 @@ class SteamGameController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $url = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=".env("STEAM_APIKEY")."&steamid=".env("STEAM_USERID")."&include_appinfo=true&include_played_free_games=true";
+        $rawgamelist = json_decode(file_get_contents($url), true)['response']['games'];
+
+        // now iterate through $fullgame with updateorcreate
+        
+        foreach($rawgamelist as $entry)
+        {
+            $game = SteamGame::updateOrCreate(
+                ['appid' => $entry['appid']],
+                [
+                    'name' => $entry['name'],
+                    'playtime'=> $entry['playtime_forever'],
+                    'playtime_2weeks' => isset($entry['playtime_2weeks'])? $entry['playtime_2weeks'] : 0
+                ]
+            );
+        }
+
+        // end 
+        return redirect(route('steamlib.index'));
+
     }
 
     /**

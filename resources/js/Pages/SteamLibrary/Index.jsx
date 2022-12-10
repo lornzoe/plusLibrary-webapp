@@ -3,8 +3,9 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import PrimaryButton from '@/Components/PrimaryButton';
 
 import { useForm, Head } from '@inertiajs/inertia-react';
+import SteamGame from '@/Components/SteamGame';
  
-export default function Index({ auth }) {
+export default function Index({ auth, recentgames }) {
     const { data, setData, post, processing, reset, errors } = useForm({
         message: '',
     });
@@ -22,17 +23,14 @@ export default function Index({ auth }) {
             <Head title="SteamLibrary" />
             <div className="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
                 <form onSubmit={submit}>
-                    <textarea
-                        value={data.message}
-                        placeholder="What's on your mind?"
-                        className="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                        onChange={e => setData('message', e.target.value)}
-                    ></textarea>
                     <PrimaryButton className="mt-4" processing={processing}>refresh</PrimaryButton>
                 </form>
                 
                 <div className="mt-6 bg-white shadow-sm rounded-lg divide-y">
-                    aaaaaf
+                    {recentgames.map(
+                        steamgame=>
+                        <SteamGame key={steamgame.id} steamgame={steamgame}/>
+                    )}
                 </div>
 
             </div>
