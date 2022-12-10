@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\RawDBController;
+use App\Http\Controllers\SteamGameController;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -46,5 +47,11 @@ Route::resource('chirps', ChirpController::class)
 Route::resource('db_backup', RawDBController::class) // renamed from rawdb
     ->only(['index'])
     ->middleware(['auth', 'verified']); // so that this is not so easily accessible
+
+
+
+Route::resource('steamlib', SteamGameController::class)
+    ->only(['index'])
+    ->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

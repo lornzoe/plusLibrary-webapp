@@ -27,6 +27,9 @@ export default function Authenticated({ auth, header, children }) {
                                 <NavLink href={route('chirps.index')} active={route().current('chirps.index')}>
                                     Chirps
                                 </NavLink>
+                                <NavLink href={route('steamlib.index')} active={route().current('steamlib')}>
+                                    Library
+                                </NavLink>
                                 <NavLink target="_blank" href={route('db_backup.index')} active={route().current('db_backup.index')}>
                                     DB_Backup  <small>(middle click)</small>
                                 </NavLink>
