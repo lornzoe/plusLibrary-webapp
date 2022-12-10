@@ -51,7 +51,7 @@ Route::resource('db_backup', RawDBController::class) // renamed from rawdb
 
 
 Route::resource('steamlib', SteamGameController::class)
-    ->only(['index'])
+    ->only(['index', 'store', 'update'])
     ->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';
