@@ -16,6 +16,11 @@ return new class extends Migration
         Schema::create('steam_games', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+
+            $table->string('appid');
+            $table->string('name');
+            $table->integer('playtime');
+            $table->integer('playtime_2weeks');
         });
     }
 
