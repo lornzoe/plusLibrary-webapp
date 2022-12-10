@@ -5,7 +5,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import { useForm, Head } from '@inertiajs/inertia-react';
 import SteamGame from '@/Components/SteamGame';
  
-export default function Index({ auth, recentgames }) {
+export default function Index({ auth, recentgames, lastupdate }) {
     const { data, setData, post, processing, reset, errors } = useForm({
         message: '',
     });
@@ -22,10 +22,12 @@ export default function Index({ auth, recentgames }) {
         >
             <Head title="SteamLibrary" />
             <div className="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
-                <form onSubmit={submit}>
-                    <PrimaryButton className="mt-4" processing={processing}>refresh</PrimaryButton>
-                </form>
-                
+                <div className="flex mt-4">
+                    <form onSubmit={submit}>
+                        <PrimaryButton processing={processing}>refresh</PrimaryButton>
+                    </form>
+                    <small className="ml-3 text-sm text-gray-400"> last job execution: {new Date(lastupdate.updated_at).toLocaleString()}</small>
+                </div>
                 <div className="mt-6 bg-white shadow-sm rounded-lg divide-y">
                     {recentgames.map(
                         steamgame=>

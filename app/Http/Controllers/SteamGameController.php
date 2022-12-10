@@ -16,10 +16,14 @@ class SteamGameController extends Controller
     public function index()
     {
         // get the list of games, sort by first x, show here
-        $recentgames = SteamGame::where('playtime_2weeks', '>', 0)->orderBy('playtime_2weeks', 'DESC')->get();
+        // $recentgames = SteamGame::where('playtime_2weeks', '>', 0)->orderBy('playtime_2weeks', 'DESC')->get();
+        // $lastupdate = SteamGame::where('playtime_2weeks', '>', 0)->orderBy('updated_at', 'DESC')->get()->first();
+
+        $gamelist = SteamGame::where('playtime_2weeks', '>', 0);
 
         return Inertia::render('SteamLibrary/Index', [
-            'recentgames' => $recentgames 
+            'recentgames' => $gamelist->orderBy('playtime_2weeks', 'DESC')->get(), // $recentgames,
+            'lastupdate' => $gamelist->orderBy('updated_at', 'DESC')->get()->first() // $lastupdate
         ]);
     }
 

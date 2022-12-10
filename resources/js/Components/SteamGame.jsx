@@ -14,12 +14,14 @@ export default function SteamGame({ steamgame }) {
                     </div>
                 </div>
                 <hr/>
-                <div class="grid grid-rows-2 gap-1 grid-cols-2">
+                <div className="grid grid-rows-2 gap-1 grid-cols-2">
                     <div>Playtime</div>
-                    <div>{(steamgame.playtime / 60).toFixed(2)} hours</div>
+                    <div>{(steamgame.playtime / 60).toFixed(2)} hours 
+                    <small className="ml-3 text-sm text-gray-400">({steamgame.playtime} mins)</small></div> 
 
                     <div>2weeks</div>
-                    <div>{(steamgame.playtime_2weeks / 60).toFixed(2)} hours</div>
+                    <div>{(steamgame.playtime_2weeks / 60).toFixed(2)} hours 
+                    <small className="ml-3 text-sm text-gray-400">({steamgame.playtime_2weeks} mins)</small></div>
                 </div>
             </div>
         </div>
