@@ -49,15 +49,15 @@ Route::resource('db_backup', RawDBController::class) // renamed from rawdb
     ->only(['index'])
     ->middleware(['auth', 'verified']); // so that this is not so easily accessible
 
-Route::resource('steamlib', SteamGameController::class)
-    ->only(['index', 'store', 'update'])
+// Route::resource('steamlib', SteamGameController::class)
+//     ->only(['index', 'store', 'update'])
+//     ->middleware(['auth', 'verified']);
+
+Route::resource('steamlib', SteamLibraryController::class)
+    ->only(['index', 'update'])
     ->middleware(['auth', 'verified']);
 
-Route::resource('anothersteamlib', SteamLibraryController::class)
-    ->only(['index', 'store', 'update'])
-    ->middleware(['auth', 'verified']);
-
-Route::get('/refreshsteamlib', [SteamLibraryController::class, 'updateLibrary']);
+Route::get('/refreshsteamlib', [SteamLibraryController::class, 'updateLibraryThroughLink']); 
 
 
 

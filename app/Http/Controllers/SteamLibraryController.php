@@ -27,7 +27,12 @@ class SteamLibraryController extends Controller
     public function updateLibrary()
     {
         dispatch(new SteamLibraryPull_1());
-        dd('SteamLibraryPull_1() dispatched');
+        // dd('SteamLibraryPull_1() dispatched');
     }
 
+    public function updateLibraryThroughLink()
+    {
+        SteamLibraryController::updateLibrary();
+        return redirect(route('steamlib.index'));
+    }
 }
