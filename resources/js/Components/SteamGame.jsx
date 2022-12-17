@@ -10,7 +10,7 @@ export default function SteamGame({ steamgame }) {
                 <div className="flex justify-between items-center">
                     <div>
                         <span className="text-gray-800">{steamgame.name}</span>
-                        <small className="ml-3 text-sm text-gray-400">{steamgame.appid}</small>
+                        <small className="ml-3 text-sm text-gray-400">{steamgame.appid} - {steamgame.owned ? 'OWNED' : 'NOT OWNED'}</small>
                     </div>
                 </div>
                 <hr/>

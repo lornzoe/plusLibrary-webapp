@@ -48,8 +48,11 @@ class SteamLibraryPull_1 implements ShouldQueue
             return;
         }
 
-        // now iterate through $fullgame with updateorcreate
+        // if we have data, start messing with database
+        // query all steam games to be unowned, as we iterate updateOrCreate we set owned to true
+        SteamGame::query()->update(['owned' => 0]);
         
+        // now iterate through $fullgame with updateorcreate
         foreach($rawgamelist as $entry)
         {
             $game = SteamGame::updateOrCreate(
@@ -57,7 +60,9 @@ class SteamLibraryPull_1 implements ShouldQueue
                 [
                     'name' => $entry['name'],
                     'playtime'=> $entry['playtime_forever'],
-                    'playtime_2weeks' => isset($entry['playtime_2weeks'])? $entry['playtime_2weeks'] : 0
+                    'playtime_2weeks' => isset($entry['playtime_2weeks'])? $entry['playtime_2weeks'] : 0,
+
+                    'owned' => 1
                 ]
             );
         }

@@ -15,5 +15,7 @@ class SteamGame extends Model
         'name', // string
         'playtime', // decimal
         'playtime_2weeks', // decimal
+
+        'owned', // boolean /tinyint for sqlite
     ];
 }
