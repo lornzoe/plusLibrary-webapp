@@ -36,10 +36,17 @@ class SteamLibraryPull_1 implements ShouldQueue
      */
     public function handle()
     {
-        // !!! JOB HANDLE IS NOT TESTED.
-
+        try 
+        {
         $url = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=".env("STEAM_APIKEY")."&steamid=".env("STEAM_USERID")."&include_appinfo=true&include_played_free_games=true";
         $rawgamelist = json_decode(file_get_contents($url), true)['response']['games'];
+        }
+        catch (Exception $exception)
+        {
+            // this is assuming there's no connection to Steam.
+            // safely stop the job here.
+            return;
+        }
 
         // now iterate through $fullgame with updateorcreate
         
