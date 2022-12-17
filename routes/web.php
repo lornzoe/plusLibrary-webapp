@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\RawDBController;
 use App\Http\Controllers\SteamGameController;
+use App\Http\Controllers\SteamLibraryController;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -48,10 +49,16 @@ Route::resource('db_backup', RawDBController::class) // renamed from rawdb
     ->only(['index'])
     ->middleware(['auth', 'verified']); // so that this is not so easily accessible
 
-
-
 Route::resource('steamlib', SteamGameController::class)
     ->only(['index', 'store', 'update'])
     ->middleware(['auth', 'verified']);
+
+Route::resource('anothersteamlib', SteamLibraryController::class)
+    ->only(['index', 'store', 'update'])
+    ->middleware(['auth', 'verified']);
+
+Route::get('/refreshsteamlib', [SteamLibraryController::class, 'updateLibrary']);
+
+
 
 require __DIR__.'/auth.php';
