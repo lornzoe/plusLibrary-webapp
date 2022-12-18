@@ -10,6 +10,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+use App\Http\Controllers\DebugPage; 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -57,8 +59,10 @@ Route::resource('steamlib', SteamLibraryController::class)
     ->only(['index', 'update'])
     ->middleware(['auth', 'verified']);
 
-Route::get('/refreshsteamlib', [SteamLibraryController::class, 'updateLibraryThroughLink']); 
+Route::get('/refreshsteamlib', [SteamLibraryController::class, 'updateLibraryThroughLink']);
 
+// for debugging
+Route::get('/debug', [DebugPage::class, 'debugCheck']);
 
 
 require __DIR__.'/auth.php';
