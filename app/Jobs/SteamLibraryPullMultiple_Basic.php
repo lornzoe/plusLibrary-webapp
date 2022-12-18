@@ -10,6 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
 use App\Models\SteamGame;
+use App\Jobs\SteamLibraryPullSingle_Achievements;
 
 /*
 | _1: We're pulling from the API to table steam_games: appid, name, playtime, playtime_2weeks
@@ -66,15 +67,11 @@ class SteamLibraryPullMultiple_Basic implements ShouldQueue
                 ]
             );
 
-            // some extra stuff if game was recently created
-            if ($game->wasRecentlyCreated)
+            // some extra stuff if game was recently created/ recently played
+            if ($game->wasRecentlyCreated || isset($entry['playtime_2weeks']))
             {
-                //
-            }
-            // else if it's recent (we only want to queue job once)
-            elseif (isset($entry['playtime_2weeks']))
-            {
-                //
+                //dispatch steamach job
+                SteamLibraryPullSingle_Achievements::dispatch($entry['appid']);
             }
         }
         

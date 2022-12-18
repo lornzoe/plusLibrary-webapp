@@ -13,9 +13,12 @@ class SteamGame extends Model
         // PULLED FROM API
         'appid', //string
         'name', // string
-        'playtime', // decimal
-        'playtime_2weeks', // decimal
+        'playtime', // integer
+        'playtime_2weeks', // integer
 
         'owned', // boolean /tinyint for sqlite
+
+        'achievements_achieved', // integer
+        'achievements_total', // integer
     ];
 }
