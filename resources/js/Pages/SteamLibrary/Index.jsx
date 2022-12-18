@@ -26,7 +26,7 @@ export default function Index({ auth, recentgames, lastupdate }) {
                     <a href="/refreshsteamlib">
                         <PrimaryButton processing={processing}>/refreshsteamlib</PrimaryButton>
                     </a>
-                    <small className="ml-3 text-sm text-gray-400"> last job execution: {new Date(lastupdate.updated_at).toLocaleString()}</small>
+                    <small className="ml-3 text-sm text-gray-400"> last job execution: {new Date(lastupdate ? lastupdate.updated_at : null).toLocaleString()}</small>
                 </div>
 
                 <div className="mt-6 bg-white shadow-sm rounded-lg divide-y">

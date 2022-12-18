@@ -19,8 +19,8 @@ class SteamLibraryController extends Controller
         $gamelist = SteamGame::where('playtime_2weeks', '>', 0);
 
         return Inertia::render('SteamLibrary/Index', [
-            'recentgames' => $gamelist->orderBy('playtime_2weeks', 'DESC')->get(), // $recentgames,
-            'lastupdate' => $gamelist->orderBy('updated_at', 'DESC')->get()->first() // $lastupdate
+            'recentgames' => SteamGame::where('playtime_2weeks', '>', 0)->orderBy('playtime_2weeks', 'DESC')->get(), // $recentgames,
+            'lastupdate' => SteamGame::where('playtime_2weeks', '>', 0)->orderBy('updated_at', 'DESC')->get()->first() // $lastupdate
         ]);
     }
 
