@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->job(new SteamLibraryPullMultiple_Basic())->everyMinute();
+        $schedule->job(new SteamLibraryPullMultiple_Basic())->everyThirtyMinutes();	
     }
 
     /**
