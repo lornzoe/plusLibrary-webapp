@@ -12,6 +12,9 @@ export default function SteamGame({ steamgame }) {
                         <span className="text-gray-800">{steamgame.name}</span>
                         <small className="ml-3 text-sm text-gray-400">{steamgame.appid} - {steamgame.owned ? 'OWNED' : 'NOT OWNED'}</small>
                     </div>
+                    <div className="origin-right">
+                        <small className="text-right text-sm text-gray-400">{steamgame.achievements_total == 0 ? '-' : `achievements: ${steamgame.achievements_achieved} / ${steamgame.achievements_total} (${(steamgame.achievements_achieved/steamgame.achievements_total * 100).toFixed(2)} %)`}</small>
+                    </div>
                 </div>
                 <hr/>
                 <div className="grid grid-rows-2 gap-1 grid-cols-2">
