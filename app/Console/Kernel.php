@@ -4,7 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use App\Jobs\SteamLibraryPull_1;
+use App\Jobs\SteamLibraryPullMultiple_Basic;
 
 class Kernel extends ConsoleKernel
 {
@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->job(new SteamLibraryPull_1)->everyMinute();
+        $schedule->job(new SteamLibraryPullMultiple_Basic())->everyMinute();
     }
 
     /**

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\SteamGame;
 use Inertia\Inertia;
-use App\Jobs\SteamLibraryPull_1;
+use App\Jobs\SteamLibraryPullMultiple_Basic;
 
 class SteamLibraryController extends Controller
 {
@@ -26,8 +26,8 @@ class SteamLibraryController extends Controller
 
     public function updateLibrary()
     {
-        dispatch(new SteamLibraryPull_1());
-        // dd('SteamLibraryPull_1() dispatched');
+        dispatch(new SteamLibraryPullMultiple_Basic());
+        // dd('SteamLibraryPullMultiple_Basic() dispatched');
     }
 
     public function updateLibraryThroughLink()

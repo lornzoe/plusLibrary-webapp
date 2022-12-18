@@ -15,7 +15,7 @@ use App\Models\SteamGame;
 | _1: We're pulling from the API to table steam_games: appid, name, playtime, playtime_2weeks
 | 
 */
-class SteamLibraryPull_1 implements ShouldQueue
+class SteamLibraryPullMultiple_Basic implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -65,6 +65,17 @@ class SteamLibraryPull_1 implements ShouldQueue
                     'owned' => 1
                 ]
             );
+
+            // some extra stuff if game was recently created
+            if ($game->wasRecentlyCreated)
+            {
+                //
+            }
+            // else if it's recent (we only want to queue job once)
+            elseif (isset($entry['playtime_2weeks']))
+            {
+                //
+            }
         }
         
         // end 
