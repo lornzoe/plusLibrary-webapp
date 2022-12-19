@@ -11,7 +11,7 @@ class DebugPage extends Controller
     public function debugCheck()
     {
         // function here
-        DebugPage::achTest();
+        DebugPage::steamLibraryPullMultiple_Basic_Job();
 
         //
         dd("nothing for debugcheck");
@@ -121,5 +121,50 @@ class DebugPage extends Controller
     {
         $appid = '1594940';
         SteamLibraryPullSingle_Achievements::dispatch($appid);
+    }
+
+    public function steamLibraryPullMultiple_Basic_Job()
+    {
+        try 
+        {
+        $url = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=".env("STEAM_APIKEY")."&steamid=".env("STEAM_USERID")."&include_appinfo=true&include_played_free_games=true";
+        $rawgamelist = json_decode(file_get_contents($url), true)['response']['games'];
+        }
+        catch (\Exception $e)
+        {
+            // this is assuming there's no connection to Steam.
+            // safely stop the job here.
+            // fail($e);
+            dd($e);
+        }
+
+        // if we have data, start messing with database
+        // query all steam games to be unowned, as we iterate updateOrCreate we set owned to true
+        SteamGame::query()->update(['owned' => 0]);
+        
+        // now iterate through $fullgame with updateorcreate
+        foreach($rawgamelist as $entry)
+        {
+            $game = SteamGame::updateOrCreate(
+                ['appid' => $entry['appid']],
+                [
+                    'name' => $entry['name'],
+                    'playtime'=> $entry['playtime_forever'],
+                    'playtime_2weeks' => isset($entry['playtime_2weeks'])? $entry['playtime_2weeks'] : 0,
+
+                    'owned' => 1
+                ]
+            );
+
+            // some extra stuff if game was recently created/ recently played
+            if ($game->wasRecentlyCreated || isset($entry['playtime_2weeks']))
+            {
+                //dispatch steamach job
+                //SteamLibraryPullSingle_Achievements::dispatch($entry['appid']);
+            }
+        }
+        
+        // end
+        dd("success?");    
     }
 }

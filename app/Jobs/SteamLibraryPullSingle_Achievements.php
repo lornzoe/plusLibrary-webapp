@@ -76,10 +76,10 @@ class SteamLibraryPullSingle_Achievements implements ShouldQueue
         $game->update(["achievements_achieved" => $achieved]);
         $game->update(["achievements_total" => count($acharray)]);
         }
-        catch (ErrorException $exception)
+        catch (\Exception $e)
         {
-        // handle failed actions (usually no connection to api)
-        return;
+            // handle failed actions (usually no connection to api)
+            fail($e);
         }
 
         // end.
