@@ -52,16 +52,14 @@ export default function Welcome(props) {
                                             href="https://laravel.com/docs"
                                             className="underline text-gray-900 dark:text-white"
                                         >
-                                            Documentation
+                                            bruh
                                         </a>
                                     </div>
                                 </div>
 
                                 <div className="ml-12">
                                     <div className="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                        Laravel has wonderful, thorough documentation covering every aspect of the
-                                        framework. Whether you are new to the framework or have previous experience with
-                                        Laravel, we recommend reading all of the documentation from beginning to end.
+                                        this is making me want to die no lie
                                     </div>
                                 </div>
                             </div>
@@ -86,16 +84,14 @@ export default function Welcome(props) {
                                             href="https://laracasts.com"
                                             className="underline text-gray-900 dark:text-white"
                                         >
-                                            Laracasts
+                                            cast me away
                                         </a>
                                     </div>
                                 </div>
 
                                 <div className="ml-12">
                                     <div className="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                        Laracasts offers thousands of video tutorials on Laravel, PHP, and JavaScript
-                                        development. Check them out, see for yourself, and massively level up your
-                                        development skills in the process.
+                                        im being put on suicide watch
                                     </div>
                                 </div>
                             </div>
@@ -119,16 +115,14 @@ export default function Welcome(props) {
                                             href="https://laravel-news.com/"
                                             className="underline text-gray-900 dark:text-white"
                                         >
-                                            Laravel News
+                                            i think it's like 30 versions at this point
                                         </a>
                                     </div>
                                 </div>
 
                                 <div className="ml-12">
                                     <div className="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                        Laravel News is a community driven portal and newsletter aggregating all of the
-                                        latest and most important news in the Laravel ecosystem, including new package
-                                        releases and tutorials.
+                                        8 to add features, 22 to fuck around and see what works
                                     </div>
                                 </div>
                             </div>
@@ -148,7 +142,7 @@ export default function Welcome(props) {
                                     </svg>
 
                                     <div className="ml-4 text-lg leading-7 font-semibold text-gray-900 dark:text-white">
-                                        Vibrant Ecosystem
+                                        yeetosystem - i wanna off myself ok back to work.
                                     </div>
                                 </div>
 

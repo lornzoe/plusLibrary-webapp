@@ -3,12 +3,10 @@
 app = "pluslibrary"
 kill_signal = "SIGINT"
 kill_timeout = 5
-processes = []
 
 [processes]
   app = ""
-  cron = "cron -f"
-  worker = "php artisan queue:work"
+
 
 [build]
   [build.args]
@@ -22,7 +20,6 @@ processes = []
   LOG_STDERR_FORMATTER = "Monolog\\Formatter\\JsonFormatter"
   DB_CONNECTION = "sqlite"
   QUEUE_CONNECTION = "database"
-
 
 [experimental]
   allowed_public_ports = []
