@@ -6,7 +6,8 @@ kill_timeout = 5
 
 [processes]
   app = ""
-
+  scheduler = "php artisan schedule:work"
+  worker = "php artisan queue:work"
 
 [build]
   [build.args]
@@ -18,8 +19,10 @@ kill_timeout = 5
   LOG_CHANNEL = "stderr"
   LOG_LEVEL = "info"
   LOG_STDERR_FORMATTER = "Monolog\\Formatter\\JsonFormatter"
-  DB_CONNECTION = "sqlite"
   QUEUE_CONNECTION = "database"
+  DB_CONNECTION = "pgsql"
+  DB_PORT = "5432"
+  DB_DATABASE= "pluslibrary"
 
 [experimental]
   allowed_public_ports = []
