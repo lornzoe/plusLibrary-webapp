@@ -5,6 +5,11 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import { useForm, Head } from '@inertiajs/inertia-react';
 import SteamGame from '@/Components/SteamGame';
  
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+ 
+dayjs.extend(relativeTime);
+
 export default function Index({ auth, recentgames, lastupdate }) {
     const { data, setData, post, processing, reset, errors } = useForm({
         message: '',
@@ -27,6 +32,7 @@ export default function Index({ auth, recentgames, lastupdate }) {
                         <PrimaryButton processing={processing}>/refreshsteamlib</PrimaryButton>
                     </a>
                     <small className="ml-3 text-sm text-gray-400"> last job execution: {new Date(lastupdate ? lastupdate.updated_at : null).toLocaleString()}</small>
+                    <small className="ml-3 text-sm text-gray-400">// {dayjs(lastupdate ? lastupdate.updated_at : null).fromNow()}</small>
                 </div>
 
                 <div className="mt-6 bg-white shadow-sm rounded-lg divide-y">

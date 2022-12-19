@@ -4,6 +4,12 @@ import InputError from '@/Components/InputError';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { useForm, usePage } from '@inertiajs/inertia-react';
 
+
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+ 
+dayjs.extend(relativeTime);
+
 export default function Chirp({ chirp }) {
     const { auth } = usePage().props;
  
@@ -27,7 +33,7 @@ export default function Chirp({ chirp }) {
                 <div className="flex justify-between items-center">
                     <div>
                         <span className="text-gray-800">{chirp.user.name}</span>
-                        <small className="ml-2 text-sm text-gray-600">{new Date(chirp.created_at).toLocaleString()}</small>
+                        <small className="ml-2 text-sm text-gray-600">{dayjs(chirp.created_at).fromNow()}</small>
                         { chirp.created_at !== chirp.updated_at && <small className="text-sm text-gray-600"> &middot; edited ({new Date(chirp.updated_at).toLocaleString()})</small>}
                     </div>
                     {chirp.user.id === auth.user.id &&
