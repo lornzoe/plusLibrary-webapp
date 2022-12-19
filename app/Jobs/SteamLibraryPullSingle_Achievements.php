@@ -36,7 +36,6 @@ class SteamLibraryPullSingle_Achievements implements ShouldQueue
         if ($this->appid == "0") // not properly initialised.
         {
             // error message?
-            dd("appid invalid");
             return;
         }
 
@@ -49,39 +48,40 @@ class SteamLibraryPullSingle_Achievements implements ShouldQueue
             return;
         }
 
-         // handle logic here
-         try
-         {
-            // api pull here
-            $url = "https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v1/?key=".env("STEAM_APIKEY")."&steamid=".env("STEAM_USERID")."&appid=".$this->appid;
-            $context = stream_context_create(array(
-                'http' => array('ignore_errors' => true),
-                )); // lazy method to protect ourselves from 400 errors (own game, 0 total achs in game)
-               $response = json_decode(file_get_contents($url, false, $context),true);
+        // handle logic here
+        try
+        {
+        // api pull here
+        $url = "https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v1/?key=".env("STEAM_APIKEY")."&steamid=".env("STEAM_USERID")."&appid=".$this->appid;
+        $context = stream_context_create(array(
+            'http' => array('ignore_errors' => true),
+            )); // lazy method to protect ourselves from 400 errors (own game, 0 total achs in game)
+            $response = json_decode(file_get_contents($url, false, $context),true);
 
-            if (!$response["playerstats"]["success"] || !isset($response["playerstats"]["achievements"])) // if no ach/not owned
-            {
-                $game->update(["achievements_achieved" => 0]);
-                $game->update(["achievements_total" => 0]);
-                dd("no ach case");
-                return;
-            }
-            
-            $acharray = $response["playerstats"]["achievements"];
-
-            $achieved = 0;
-            foreach($acharray as $ach)
-            {
-                if ($ach['achieved'])
-                    $achieved++;
-            }
-            $game->update(["achievements_achieved" => $achieved]);
-            $game->update(["achievements_total" => count($acharray)]);
-         }
-         catch (ErrorException $exception)
-         {
-            // handle failed actions (usually no connection to api)
+        if (!$response["playerstats"]["success"] || !isset($response["playerstats"]["achievements"])) // if no ach/not owned
+        {
+            $game->update(["achievements_achieved" => 0]);
+            $game->update(["achievements_total" => 0]);
             return;
-         }
+        }
+        
+        $acharray = $response["playerstats"]["achievements"];
+
+        $achieved = 0;
+        foreach($acharray as $ach)
+        {
+            if ($ach['achieved'])
+                $achieved++;
+        }
+        $game->update(["achievements_achieved" => $achieved]);
+        $game->update(["achievements_total" => count($acharray)]);
+        }
+        catch (ErrorException $exception)
+        {
+        // handle failed actions (usually no connection to api)
+        return;
+        }
+
+        // end.
     }
 }
