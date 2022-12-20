@@ -10,6 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
 use App\Models\SteamGame;
+use App\Models\SteamGameFillable;
 use App\Jobs\SteamLibraryPullSingle_Achievements;
 
 /*
@@ -66,7 +67,11 @@ class SteamLibraryPullMultiple_Basic implements ShouldQueue
                     'owned' => 1
                 ]
             );
-
+            // first or create the fillable 
+            $gamefillable = SteamGameFillable::firstOrCreate(
+                ['appid' => $entry['appid']]
+            );
+            
             // some extra stuff if game was recently created/ recently played
             if ($game->wasRecentlyCreated || isset($entry['playtime_2weeks']))
             {

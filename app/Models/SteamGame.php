@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use SteamGameFillable;
 
 class SteamGame extends Model
 {
@@ -21,4 +22,8 @@ class SteamGame extends Model
         'achievements_achieved', // integer
         'achievements_total', // integer
     ];
+
+    public function fillables() {
+        return $this->hasOne(SteamGameFillable::class, 'appid', 'appid');
+    }
 }
