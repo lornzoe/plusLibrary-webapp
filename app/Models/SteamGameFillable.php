@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use SteamGame;
+use App\Models\SteamGame;
 
 class SteamGameFillable extends Model
 {

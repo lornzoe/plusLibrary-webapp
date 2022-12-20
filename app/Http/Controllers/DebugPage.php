@@ -11,8 +11,7 @@ class DebugPage extends Controller
     public function debugCheck()
     {
         // function here
-        DebugPage::steamLibraryPullMultiple_Basic_Job();
-
+        DebugPage::verifyFillableReference();
         //
         dd("nothing for debugcheck");
     }
@@ -166,5 +165,10 @@ class DebugPage extends Controller
         
         // end
         dd("success?");    
+    }
+
+    public function verifyFillableReference()
+    {
+        dd(SteamGame::first()->fillables->game);
     }
 }
