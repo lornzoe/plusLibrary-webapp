@@ -169,6 +169,6 @@ class DebugPage extends Controller
 
     public function verifyFillableReference()
     {
-        dd(SteamGame::first()->fillables->game);
+        dd(SteamGame::first()->fillables->date_obtained);
     }
 }
