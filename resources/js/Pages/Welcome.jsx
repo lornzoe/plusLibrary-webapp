@@ -59,7 +59,7 @@ export default function Welcome(props) {
 
                                 <div className="ml-12">
                                     <div className="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                        this is making me want to die no lie
+                                        AAAAAAAAAAAAAAAAAAAAAA
                                     </div>
                                 </div>
                             </div>
@@ -91,7 +91,7 @@ export default function Welcome(props) {
 
                                 <div className="ml-12">
                                     <div className="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                        im being put on suicide watch
+                                        if you're seeing this page render on mobile please lmk nzoe#0001 please thanks
                                     </div>
                                 </div>
                             </div>
@@ -115,14 +115,14 @@ export default function Welcome(props) {
                                             href="https://laravel-news.com/"
                                             className="underline text-gray-900 dark:text-white"
                                         >
-                                            i think it's like 30 versions at this point
+                                            i think it's like 60 versions at this point
                                         </a>
                                     </div>
                                 </div>
 
                                 <div className="ml-12">
                                     <div className="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                        8 to add features, 22 to fuck around and see what works
+                                        10 to add features, 50 to fuck around with configs and see what works
                                     </div>
                                 </div>
                             </div>
@@ -142,7 +142,7 @@ export default function Welcome(props) {
                                     </svg>
 
                                     <div className="ml-4 text-lg leading-7 font-semibold text-gray-900 dark:text-white">
-                                        yeetosystem - i wanna off myself ok back to work.
+                                        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
                                     </div>
                                 </div>
 
