@@ -5,6 +5,7 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Jobs\SteamLibraryPullMultiple_Basic;
+use App\Jobs\SteamLibraryCreateMonthlySnapshot;
 
 class Kernel extends ConsoleKernel
 {
@@ -19,8 +20,10 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         // $schedule->command('queue:work')->withoutOverlapping();
         $schedule->job(new SteamLibraryPullMultiple_Basic())->hourlyAt(55);
-        $schedule->job(new SteamLibraryPullMultiple_Basic())->hourlyAt(25);	
-	
+        $schedule->job(new SteamLibraryPullMultiple_Basic())->hourlyAt(25);
+        
+        // hourly check on the snapshot
+        $schedule->job(new SteamLibraryCreateMonthlySnapshot())->hourly();
     }
 
     /**

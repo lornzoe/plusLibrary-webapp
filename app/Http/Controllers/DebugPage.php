@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\SteamGame;
 use App\Jobs\SteamLibraryPullSingle_Achievements;
+use Carbon\Carbon;
+use App\Models\SteamMonthlySnapshot;
+use App\Jobs\SteamLibraryCreateMonthlySnapshot;
 
 class DebugPage extends Controller
 {
     public function debugCheck()
     {
         // function here
-        DebugPage::verifyFillableReference();
+        DebugPage::dispatchSteamLibraryCreateMonthlySnapshot();
         //
         dd("nothing for debugcheck");
     }
@@ -170,5 +173,41 @@ class DebugPage extends Controller
     public function verifyFillableReference()
     {
         dd(SteamGame::first()->fillables->date_obtained);
+    }
+
+    public function steamCreateMonthlySnapshot()
+    {
+        $today = Carbon::now();
+        $year = $today->year;
+        $month = $today->month;
+
+        if (SteamMonthlySnapshot::where('timestamp_year', $year)
+            ->where('timestamp_month', $month)
+            ->exists())
+        {
+            // handle the snapshot existing already
+            dd("we already have this month's ($month / $year) snapshot!");
+            return; // we already have the snapshot and we don't need it
+        }
+        
+        // basically, iterate through the whole steam_games table and copy over.
+        $list = SteamGame::where('owned', true)->get();
+        
+        foreach ($list as $game)
+        {
+            $ss = SteamMonthlySnapshot::create(
+            [
+                'appid' => $game['appid'],
+                'playtime' => $game['playtime'],
+                'timestamp_month' => $month,
+                'timestamp_year' => $year
+            ]
+            );
+        }
+    }
+
+    public function dispatchSteamLibraryCreateMonthlySnapshot()
+    {
+        SteamLibraryCreateMonthlySnapshot::dispatch();
     }
 }

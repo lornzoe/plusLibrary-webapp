@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\SteamGameFillable;
+use App\Models\SteamMonthlySnapshot;
 
 class SteamGame extends Model
 {
@@ -25,5 +26,9 @@ class SteamGame extends Model
 
     public function fillables() {
         return $this->hasOne(SteamGameFillable::class, 'appid', 'appid');
+    }
+
+    public function snapshots() {
+        return $this->hasMany(SteamMonthlySnapshot::class);
     }
 }
