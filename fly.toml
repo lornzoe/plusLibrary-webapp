@@ -52,3 +52,6 @@ kill_timeout = 5
     interval = "15s"
     restart_limit = 0
     timeout = "2s"
+
+[deploy]
+  release_command = "php /var/www/html/artisan migrate --force"
