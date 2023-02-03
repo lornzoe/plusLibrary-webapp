@@ -5,6 +5,7 @@ use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\RawDBController;
 use App\Http\Controllers\SteamGameController;
 use App\Http\Controllers\SteamLibraryController;
+use App\Http\Controllers\CSVReader;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -60,6 +61,10 @@ Route::resource('steamlib', SteamLibraryController::class)
     ->middleware(['auth', 'verified']);
 
 Route::get('/refreshsteamlib', [SteamLibraryController::class, 'updateLibraryThroughLink']);
+
+Route::resource('csv', CSVReader::class)
+    ->only(['index'])
+    ->middleware(['auth', 'verified']);
 
 // for debugging
 Route::get('/debug', [DebugPage::class, 'debugCheck']);
