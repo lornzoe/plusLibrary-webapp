@@ -6,12 +6,14 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\SteamGameFillablesImport;
+use App\Http\Middleware\VerifyCsrfToken;
+
 
 class CSVReader extends Controller
 {
+    
     public function index()
     {
-        // a
         return Inertia::render('CSVReader/Index',[
         ]);
     }

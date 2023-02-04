@@ -43,6 +43,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/csrf-token', function (Request $request) {
+    return response()->json(['_token' => csrf_token()]);
+});
+
 Route::resource('chirps', ChirpController::class)
     ->only(['index', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
@@ -66,7 +70,7 @@ Route::resource('csv', CSVReader::class)
     ->only(['index'])
     ->middleware(['auth', 'verified']);
 
-Route::post('/csv-upload',[CSVReader::class, 'upload'])->name('csv.upload');
+Route::post('csv',[CSVReader::class, 'upload'])->name('csv.upload');
 // for debugging
 Route::get('/debug', [DebugPage::class, 'debugCheck']);
 

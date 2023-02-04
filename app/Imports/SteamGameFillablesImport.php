@@ -15,8 +15,11 @@ class SteamGameFillablesImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        return new SteamGameFillable([
-            'appid' => $row['appid'],
+        return SteamGameFillable::updateOrCreate(
+        [
+            'appid' => $row['appid']
+        ],
+        [
             'cost_initial' => $row['cost_initial'],
             'date_obtained' => $row['date_obtained'],
             'rating' => $row['rating'],

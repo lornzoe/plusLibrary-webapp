@@ -32,7 +32,7 @@ export default function SteamGame({ steamgame }) {
                             <p>$/hrs</p>
                         </div>
                         <div className="m-auto ml-0 pl-1 text-left">
-                            $ {((steamgame.fillables.cost_initial + steamgame.fillables.cost_additional)/steamgame.playtime).toFixed(2)}                              
+                            $ {((steamgame.fillables.cost_initial + steamgame.fillables.cost_additional)/steamgame.playtime * 60).toFixed(2)}                              
                         </div>
                     </div>
                     <div className="border grid grid-rows-1 grid-cols-2 w-60">

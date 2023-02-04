@@ -7,7 +7,8 @@ const CSVReader = () => {
   const [file, setFile] = useState(null);
   
   const [isConfirmed, setIsConfirmed] = useState(false);
-
+  const [csrfToken, setCsrfToken] = useState('');
+ 
   useEffect(() => {
     console.log('Data updated', data);
   }, [data]);
@@ -78,6 +79,7 @@ const CSVReader = () => {
     console.log('handleSubmit');
     
     const formData = new FormData();
+    formData.append('_token', csrfToken);
     formData.append('file', file);
 
     fetch(route('csv.upload'), {
@@ -96,6 +98,14 @@ const CSVReader = () => {
         console.error(error);
       });
   };
+
+  React.useEffect(() => {
+    fetch('/csrf-token')
+      .then((res) => res.json())
+      .then((res) => {
+        setCsrfToken(res._token);
+      });
+  }, []);
 
   const handleDataCheck = (event) =>{
     event.preventDefault();
