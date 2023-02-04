@@ -66,6 +66,7 @@ Route::resource('csv', CSVReader::class)
     ->only(['index'])
     ->middleware(['auth', 'verified']);
 
+Route::post('/csv-upload',[CSVReader::class, 'upload'])->name('csv.upload');
 // for debugging
 Route::get('/debug', [DebugPage::class, 'debugCheck']);
 

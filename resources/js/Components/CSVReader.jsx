@@ -74,33 +74,52 @@ const CSVReader = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setIsConfirmed(true);
+    console.log('handleSubmit');
+    
+    const formData = new FormData();
+    formData.append('file', file);
+
+    fetch(route('csv.upload'), {
+      method: 'POST',
+      body: formData
+    })
+      .then(res => res.json())
+      .then(res => {
+        if (res.success) {
+          console.log('File uploaded successfully!');
+        } else {
+          console.log('File upload failed.');
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  const handleDataCheck = (event) =>{
+    event.preventDefault();
     console.log('Submitting file: ', file.name);
     console.log('Headers: ', headers);
     console.log('Data: ', data);
-  };
-
-  const handleConfirm = (event) => {
-    event.preventDefault();
-    console.log('Confirmed');
-    setIsConfirmed(true);
-  };
+  }
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <input type="file" onChange={handleFileUpload} />
-        <button type="submit">Data Check</button>
-      </form>
-      <div>
-      {isConfirmed ? (
+        <button type="button" onClick={handleDataCheck}>Data Check</button>
+        {isConfirmed ? (
         <p>Action confirmed</p>
       ) : (
         <ConfirmationPopup
           message="Are you sure you want to submit this?"
-          onConfirm={handleConfirm}
           onCancel={() => console.log('Cancelled')}
         />
       )}
+      </form>
+      <div>
+      
     </div>
       <table>
         <thead>
