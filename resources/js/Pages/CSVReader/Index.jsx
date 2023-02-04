@@ -2,7 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/inertia-react';
 import CSVReader from '@/Components/CSVReader';
 
-export default function Dashboard(props) {
+export default function Index(props) {
     return (
         <AuthenticatedLayout
             auth={props.auth}
