@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import ConfirmationPopup from '@/Components/ConfirmationPopup';
 
 const CSVReader = () => {
   const [data, setData] = useState([]);
   const [headers, setHeaders] = useState([]);
   const [file, setFile] = useState(null);
+  
+  const [isConfirmed, setIsConfirmed] = useState(false);
 
   useEffect(() => {
     console.log('Data updated', data);
@@ -76,12 +79,29 @@ const CSVReader = () => {
     console.log('Data: ', data);
   };
 
+  const handleConfirm = (event) => {
+    event.preventDefault();
+    console.log('Confirmed');
+    setIsConfirmed(true);
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <input type="file" onChange={handleFileUpload} />
-        <button type="submit">Submit</button>
+        <button type="submit">Data Check</button>
       </form>
+      <div>
+      {isConfirmed ? (
+        <p>Action confirmed</p>
+      ) : (
+        <ConfirmationPopup
+          message="Are you sure you want to submit this?"
+          onConfirm={handleConfirm}
+          onCancel={() => console.log('Cancelled')}
+        />
+      )}
+    </div>
       <table>
         <thead>
           <tr>
