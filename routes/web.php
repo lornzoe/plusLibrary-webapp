@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\RawDBController;
-use App\Http\Controllers\SteamGameController;
+use App\Http\Controllers\SteamGamesController;
 use App\Http\Controllers\SteamLibraryController;
 use App\Http\Controllers\CSVReader;
 
@@ -62,6 +62,12 @@ Route::resource('db_backup', RawDBController::class) // renamed from rawdb
 
 Route::resource('steamlib', SteamLibraryController::class)
     ->only(['index', 'update'])
+    ->middleware(['auth', 'verified']);
+
+// Route::get('games/{game:appid}', [SteamGamesController::class, 'show'])
+//     ->middleware(['auth', 'verified']);
+
+Route::resource('games', SteamGamesController::class)
     ->middleware(['auth', 'verified']);
 
 Route::get('/refreshsteamlib', [SteamLibraryController::class, 'updateLibraryThroughLink']);

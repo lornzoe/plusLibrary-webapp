@@ -31,4 +31,15 @@ class SteamGame extends Model
     public function snapshots() {
         return $this->hasMany(SteamMonthlySnapshot::class);
     }
+
+    /**
+    * Get the route key for the model.
+    *
+    * @return string
+    */
+    public function getRouteKeyName()
+    {
+        return 'appid';
+    }
+
 }
