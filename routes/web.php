@@ -24,6 +24,9 @@ use App\Http\Controllers\DebugPage;
 |
 */
 
+Auth::routes(['register' => false]);
+
+
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
