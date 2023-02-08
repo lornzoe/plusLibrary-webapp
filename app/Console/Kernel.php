@@ -19,8 +19,10 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         // $schedule->command('queue:work')->withoutOverlapping();
+
+        // 8/2/2023 -- reducing limit of pull mult basic  so that we don't overload the app.
         $schedule->job(new SteamLibraryPullMultiple_Basic())->hourlyAt(55);
-        $schedule->job(new SteamLibraryPullMultiple_Basic())->hourlyAt(25);
+        //$schedule->job(new SteamLibraryPullMultiple_Basic())->hourlyAt(25);
         
         // hourly check on the snapshot
         $schedule->job(new SteamLibraryCreateMonthlySnapshot())->hourly();

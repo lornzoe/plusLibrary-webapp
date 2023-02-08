@@ -73,7 +73,11 @@ class SteamLibraryPullMultiple_Basic implements ShouldQueue
             );
             
             // some extra stuff if game was recently created/ recently played
-            if ($game->wasRecentlyCreated || isset($entry['playtime_2weeks']))
+
+            // 8/2/2023 -- disabling the 2 week shit because for some reason it's still iterating through all 1k games. not touching it until there's a confirmed fix.
+            
+            //if ($game->wasRecentlyCreated || isset($entry['playtime_2weeks']))
+            if ($game->wasRecentlyCreated)
             {
                 //dispatch steamach job
                 SteamLibraryPullSingle_Achievements::dispatch($entry['appid']);
