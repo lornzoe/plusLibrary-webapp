@@ -81,7 +81,7 @@ export default function SteamGameV2({ steamgame }) {
                     obtained date
                     </div>
                     <div className="text-left place-items-center flex">
-                    {steamgame.fillables.date_obtained !== null ? steamgame.fillables.date_obtained : "DD/MM/YYYY"}
+                    {steamgame.fillables.date_obtained !== null ? steamgame.fillables.date_obtained : "NIL"}
                     </div>
                 </div>
             </div>
