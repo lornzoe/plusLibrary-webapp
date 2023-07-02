@@ -3,7 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import PrimaryButton from '@/Components/PrimaryButton';
 
 import { useForm, Head } from '@inertiajs/inertia-react';
-import SteamGame from '@/Components/SteamGame';
+import SteamGame_overview from '@/Components/SteamGame_overview';
  
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -38,7 +38,7 @@ export default function Index({ auth, recentgames, lastupdate }) {
                 <div className="mt-6 bg-white shadow-sm lg:rounded-lg divide-y">
                     {recentgames.map(
                         steamgame=>
-                        <SteamGame key={steamgame.id} steamgame={steamgame}/>
+                        <SteamGame_overview key={steamgame.id} steamgame={steamgame}/>
                     )}
                 </div>
 
