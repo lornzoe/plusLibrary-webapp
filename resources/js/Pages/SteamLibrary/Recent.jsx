@@ -3,15 +3,14 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import PrimaryButton from '@/Components/PrimaryButton';
 
 import { useForm, Head } from '@inertiajs/inertia-react';
-import SteamGame_overview from '@/Components/SteamGame_overview';
-import SteamLibraryDropdown from '@/Components/SteamLibraryDropdown';
-
+import SteamGame from '@/Components/SteamGame';
+ 
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
  
 dayjs.extend(relativeTime);
 
-export default function Index({ auth, recentgames, lastupdate }) {
+export default function Recent({ auth, recentgames, lastupdate }) {
     const { data, setData, post, processing, reset, errors } = useForm({
         message: '',
     });
@@ -24,14 +23,11 @@ export default function Index({ auth, recentgames, lastupdate }) {
     return (
         <AuthenticatedLayout
         auth={auth}
-        header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Library</h2>}
+        header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Recently Played</h2>}
         >
-            <Head title="SteamLibrary" />
+            <Head title="SteamLibrary Recents" />
             <div className="max-w-screen-2xl min-w-screen-2xl mx-auto pl-0 pr-0 p-2 lg:p-2 xl:p-8">
-                <div className='max-w-xs flex'>
-                    <SteamLibraryDropdown/>
-                </div>
-                <div className="py-1.5 flex  ">
+                <div className="flex mt-4 pl-2 lg:p-0">
                     <a href="/refreshsteamlib">
                         <PrimaryButton processing={processing}>/refreshsteamlib</PrimaryButton>
                     </a>
@@ -42,7 +38,7 @@ export default function Index({ auth, recentgames, lastupdate }) {
                 <div className="mt-6 bg-white shadow-sm lg:rounded-lg divide-y">
                     {recentgames.map(
                         steamgame=>
-                        <SteamGame_overview key={steamgame.id} steamgame={steamgame}/>
+                        <SteamGame key={steamgame.id} steamgame={steamgame}/>
                     )}
                 </div>
 

@@ -24,6 +24,16 @@ class SteamLibraryController extends Controller
         ]);
     }
 
+    public function recent()
+    {
+        $gamelist = SteamGame::where('playtime_2weeks', '>', 0);
+
+        return Inertia::render('SteamLibrary/Index', [
+            'recentgames' => SteamGame::with("fillables")->where('playtime_2weeks', '>', 0)->orderBy('playtime_2weeks', 'DESC')->get(), // $recentgames,
+            'lastupdate' => SteamGame::where('playtime_2weeks', '>', 0)->orderBy('updated_at', 'DESC')->get()->first() // $lastupdate
+        ]);
+    }
+
     public function updateLibrary()
     {
         dispatch(new SteamLibraryPullMultiple_Basic());
