@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use App\Models\PurchaseRecord;
+
+class PurchaseRecord_TL extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'recordid', // int
+        
+        'tlcost', // decimal
+        'sgdcost' // decimal
+    ];
+
+    public function record()
+    {
+        return $this->belongsTo(PurchaseRecord::class);
+    }
+}
