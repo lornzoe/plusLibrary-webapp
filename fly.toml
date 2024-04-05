@@ -11,8 +11,8 @@ kill_timeout = 5
 
 [build]
   [build.args]
-    NODE_VERSION = "14"
-    PHP_VERSION = "8.1"
+    NODE_VERSION = "18"
+    PHP_VERSION = "8.2"
 
 [env]
   APP_ENV = "production"
