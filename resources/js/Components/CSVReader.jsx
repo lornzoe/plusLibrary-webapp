@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import ConfirmationPopup from '@/Components/ConfirmationPopup';
+import { useForm, Head } from '@inertiajs/inertia-react';
 
-const CSVReader = () => {
-  const [data, setData] = useState([]);
+export default function CSVReader() {
+  const [array, setArray] = useState([]);
   const [headers, setHeaders] = useState([]);
   const [file, setFile] = useState(null);
   
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [csrfToken, setCsrfToken] = useState('');
  
+  const { data, setData, post, processing, reset, errors } = useForm({
+    message: [],
+  });
+
   useEffect(() => {
     console.log('Data updated', data);
   }, [data]);
@@ -41,12 +46,17 @@ const CSVReader = () => {
         let withinQuotations = false;
 
         for (const character of row) {
+          if (character == /\r/g)
+          {
+            continue;
+          }
+
           if (character === '"') {
             withinQuotations = !withinQuotations;
             continue;
           }
 
-          if (character === ',' && !withinQuotations) {
+          else if (character === ',' && !withinQuotations) {
             cells.push(currentCell);
             currentCell = '';
             continue;
@@ -63,7 +73,9 @@ const CSVReader = () => {
       });
       
       setHeaders(h);
-      setData(d);
+      setArray(d);
+      setData('message', d);
+      console.log(data);
     };
 
     reader.onerror = (error) => {
@@ -78,34 +90,38 @@ const CSVReader = () => {
     setIsConfirmed(true);
     console.log('handleSubmit');
     
-    const formData = new FormData();
-    formData.append('_token', csrfToken);
-    formData.append('file', file);
+    post(route('csv.store'), { onSuccess: () => reset() });
 
-    fetch(route('csv.upload'), {
-      method: 'POST',
-      body: formData
-    })
-      .then(res => res.json())
-      .then(res => {
-        if (res.success) {
-          console.log('File uploaded successfully!');
-        } else {
-          console.log('File upload failed.');
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    // const formData = new FormData();
+    // formData.append('_token', csrfToken);
+    // formData.append('file', file);
+
+    // console.log(formData);
+
+    // fetch(route('csv.upload'), {
+    //   method: 'POST',
+    //   body: formData
+    // })
+    //   .then(res => res.json())
+    //   .then(res =>{
+    //     if (res.success) {
+    //       console.log('File uploaded successfully!');
+    //     } else {
+    //       console.log('File upload failed.');
+    //     } 
+    //   })
+    //   .catch(error => {
+    //     console.error(error);
+    //   });
   };
 
-  React.useEffect(() => {
-    fetch('/csrf-token')
-      .then((res) => res.json())
-      .then((res) => {
-        setCsrfToken(res._token);
-      });
-  }, []);
+  // React.useEffect(() => {
+  //   fetch('/csrf-token')
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       setCsrfToken(res._token);
+  //     });
+  // }, []);
 
   const handleDataCheck = (event) =>{
     event.preventDefault();
@@ -140,7 +156,7 @@ const CSVReader = () => {
           </tr>
         </thead>
         <tbody>
-          {data.map((row, index) => (
+          {array.map((row, index) => (
             <tr key={index}>
               {headers.map((header) => (
                 <td key={header}>{row[header]}</td>
@@ -152,5 +168,3 @@ const CSVReader = () => {
     </div>
   );
 };
-
-export default CSVReader;

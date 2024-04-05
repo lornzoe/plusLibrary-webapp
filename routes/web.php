@@ -73,10 +73,9 @@ Route::resource('games', SteamGamesController::class)
 Route::get('/refreshsteamlib', [SteamLibraryController::class, 'updateLibraryThroughLink']);
 
 Route::resource('csv', CSVReader::class)
-    ->only(['index'])
+    ->only(['index', 'store'])
     ->middleware(['auth', 'verified']);
 
-Route::post('csv',[CSVReader::class, 'upload'])->name('csv.upload');
 // for debugging
 Route::get('/debug', [DebugPage::class, 'debugCheck']);
 
