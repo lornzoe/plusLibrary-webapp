@@ -16,10 +16,11 @@ export default function SteamGame_expanded({ steamgame })
                 </div>
                     
                 <div className="ml-4">
-
-                <button class="bg-gray-500 text-white active:bg-gray-600 font-bold uppercase text-sm px-6 py-1.5 align-middle rounded-full shadow hover:shadow-lg m outline-none focus:outline-none ease-linear transition-all duration-150" type="button"
+                <a href={route('games.show', [steamgame.appid])}>
+                <button className="bg-gray-500 text-white active:bg-gray-600 font-bold uppercase text-sm px-6 py-1.5 align-middle rounded-full shadow hover:shadow-lg m outline-none focus:outline-none ease-linear transition-all duration-150" type="button"
                     >{steamgame.appid}  {!steamgame.owned && '- NOT OWNED'}
                 </button>
+                </a>
                 </div>   
             </div>
             <div className="grid grid-rows-2 grid-flow-col mx-auto gap-0 pt-0 flex-initial">

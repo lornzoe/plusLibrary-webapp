@@ -7,7 +7,7 @@ import Test from '@/Components/Test';
 
 export default function Index({auth, game}) {
 
-    console.log(game);
+    // console.log(game);
 
     return (
         <AuthenticatedLayout

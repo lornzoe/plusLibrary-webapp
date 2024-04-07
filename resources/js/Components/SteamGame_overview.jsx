@@ -3,6 +3,10 @@ import SecondaryButton from '@/Components/SecondaryButton';
 
 export default function SteamGame_overview({ steamgame }) 
 {
+    const submit = (e) => {
+        e.preventDefault();
+        route(`games/${steamgame.appid}`);
+    }
     return(
         <>
         <div className='py-2 border'>
@@ -13,9 +17,11 @@ export default function SteamGame_overview({ steamgame })
             <div className='flex px-2 text-xl font-black max-w-xs text-ellipsis overflow-hidden align-middle'>{steamgame.name} 
             
             <div className="ml-2 my-auto">
-            <button className="bg-gray-500 text-white active:bg-gray-600 font-bold uppercase text-xs px-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 align-middle ease-linear transition-all duration-150" type="button">
-                     {steamgame.appid}  {!steamgame.owned && '- NOT OWNED'}
-                    </button>
+                <a href={route('games.show', [steamgame.appid])}>
+            <button className="bg-gray-500 text-white active:bg-gray-600 font-bold uppercase text-xs px-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 align-middle ease-linear transition-all duration-150" 
+            type="button" >
+                    {steamgame.appid}  {!steamgame.owned && '- NOT OWNED'}
+                    </button></a>
                 </div>   
             </div>
 
