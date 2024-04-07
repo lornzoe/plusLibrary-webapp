@@ -1,6 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/inertia-react';
-import SteamGame from '@/Components/SteamGame';
+import SteamGame_overview from '@/Components/SteamGame_overview';
 
 export default function Index({auth, game}) {
 
@@ -22,7 +22,7 @@ export default function Index({auth, game}) {
                         <div className="p-6 text-gray-900">orig</div>
                     </div>
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <SteamGame key={game.id} steamgame={game}/>
+                        <SteamGame_overview key={game.appid} steamgame={game}/>
                     </div>
                 </div>
             </div>

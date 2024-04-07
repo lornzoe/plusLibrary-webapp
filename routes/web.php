@@ -64,8 +64,8 @@ Route::resource('steamlib', SteamLibraryController::class)
     ->only(['index', 'update'])
     ->middleware(['auth', 'verified']);
 
-// Route::get('games/{game:appid}', [SteamGamesController::class, 'show'])
-//     ->middleware(['auth', 'verified']);
+Route::get('games/{game:appid}', [SteamGamesController::class, 'show'])
+     ->middleware(['auth', 'verified']);
 
 Route::resource('games', SteamGamesController::class)
     ->middleware(['auth', 'verified']);
