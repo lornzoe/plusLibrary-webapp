@@ -1,15 +1,23 @@
 import React from 'react';
+import SecondaryButton from '@/Components/SecondaryButton';
 
 export default function SteamGame_overview({ steamgame }) 
 {
     return(
         <>
-        <div className='py-1'>
-            <div className='float-left px-1 my-auto'>
+        <div className='py-2 border'>
+            <div className='float-left flex-initial px-1 my-auto'>
             <img className='rounded' src={`https://cdn.cloudflare.steamstatic.com/steam//apps/${steamgame.appid}/capsule_231x87.jpg`}/>
             </div>
 
-            <div className='px-2 text-xl font-black max-w-xs text-ellipsis overflow-hidden'>{steamgame.name}</div>
+            <div className='flex px-2 text-xl font-black max-w-xs text-ellipsis overflow-hidden align-middle'>{steamgame.name} 
+            
+            <div className="ml-2 my-auto">
+            <button className="bg-gray-500 text-white active:bg-gray-600 font-bold uppercase text-xs px-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 align-middle ease-linear transition-all duration-150" type="button">
+                     {steamgame.appid}  {!steamgame.owned && '- NOT OWNED'}
+                    </button>
+                </div>   
+            </div>
 
             <div className='px-2 flex'>
                 <div className='shrink-0'>
