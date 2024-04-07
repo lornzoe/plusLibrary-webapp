@@ -25,7 +25,7 @@ export default function SteamGame_overview({ steamgame })
                     </div>
                     <div className='text-sm text-gray-400'>$/hr:&nbsp;
                         <span className='text-xs'>
-                            ${((steamgame.fillables.cost_initial + steamgame.fillables.cost_additional)/steamgame.playtime * 60).toFixed(2)}     
+                            ${((parseFloat(steamgame.fillables.cost_initial) + parseFloat(steamgame.fillables.cost_additional ? steamgame.fillables.cost_additional : 0.00))/steamgame.playtime * 60).toFixed(2) }     
                         </span>
                     </div>
                     
@@ -39,7 +39,7 @@ export default function SteamGame_overview({ steamgame })
                                 <span className='text-xs'>
                                     {steamgame.achievements_achieved} / {steamgame.achievements_total}&nbsp;
                                     
-                                    <span className={steamgame.achievements_achieved == steamgame.achievements_total &&`bg-yellow-400 rounded-full mx-1 px-1.5 py-auto text-stone-600`}>
+                                    <span className={steamgame.achievements_achieved ? steamgame.achievements_total : `bg-yellow-400 rounded-full mx-1 px-1.5 py-auto text-stone-600`}>
                                         ({(steamgame.achievements_achieved/steamgame.achievements_total * 100).toFixed(2)} %)
                                     </span>
                                 </span>
@@ -55,7 +55,7 @@ export default function SteamGame_overview({ steamgame })
                     </div>
                     <div className='text-sm text-gray-400'>
                         status:&nbsp;
-                        <div className={`inline text-xs ${steamgame.fillables.completed && `mx-1 px-2 py-auto bg-green-300 rounded-full`}`}>
+                        <div className={`inline text-xs ${(steamgame.fillables.completed && `mx-1 px-2 py-auto bg-green-300 rounded-full`)}`}>
                             {steamgame.fillables.completed ? "✅" : "not completed"}
                         </div>                   
                     </div>
