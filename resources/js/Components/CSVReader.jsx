@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ConfirmationPopup from '@/Components/ConfirmationPopup';
 import { useForm, Head } from '@inertiajs/inertia-react';
 
-export default function CSVReader() {
+export default function CSVReader({postRoute = 'fillables.store'}) {
   const [array, setArray] = useState([]);
   const [headers, setHeaders] = useState([]);
   const [file, setFile] = useState(null);
@@ -90,7 +90,7 @@ export default function CSVReader() {
     setIsConfirmed(true);
     console.log('handleSubmit');
     
-    post(route('csv.store'), { onSuccess: () => reset() });
+    post(route(postRoute), { onSuccess: () => reset() });
 
     // const formData = new FormData();
     // formData.append('_token', csrfToken);

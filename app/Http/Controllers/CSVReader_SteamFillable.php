@@ -11,12 +11,12 @@ use App\Imports\SteamGameFillablesImport;
 use App\Jobs\SteamLibraryPatchSingle_Fillables;
 use App\Models\SteamGameFillable;
 
-class CSVReader extends Controller
+class CSVReader_SteamFillable extends Controller
 {
     
     public function index()
     {
-        return Inertia::render('CSVReader/Index',[
+        return Inertia::render('CSVReader_Fillables/Index',[
         ]);
     }
 
@@ -82,7 +82,7 @@ class CSVReader extends Controller
 
         // dd($request->all());
 
-        return redirect(route('csv.index'));
+        return redirect(route('fillables.index'));
     }
 
 }

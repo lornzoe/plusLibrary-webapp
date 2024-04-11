@@ -33,8 +33,11 @@ export default function Authenticated({ auth, header, children }) {
                                 <NavLink target="_blank" href={route('db_backup.index')} active={route().current('db_backup.index')}>
                                     DB_Backup  <small>(middle click)</small>
                                 </NavLink>
-                                <NavLink href={route('csv.index')} active={route().current('csv')}>
-                                    csv
+                                <NavLink href={route('fillables.index')} active={route().current('fillables.index')}>
+                                    fillables
+                                </NavLink>
+                                <NavLink href={route('purchases.index')} active={route().current('purchases.index')}>
+                                    purchases
                                 </NavLink>
                             </div>
                         </div>

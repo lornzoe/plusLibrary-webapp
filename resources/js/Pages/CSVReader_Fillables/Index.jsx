@@ -9,7 +9,7 @@ export default function Index(props) {
             errors={props.errors}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">CSVReader</h2>}
         >
-            <Head title="Dashboard" />
+            <Head title="CSVReader_Fillables" />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -17,7 +17,7 @@ export default function Index(props) {
                         <div className="p-6 text-gray-900">test</div>
                     </div>
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <CSVReader/>
+                        <CSVReader postRoute='fillables.store'/>
                     </div>
                 </div>
             </div>

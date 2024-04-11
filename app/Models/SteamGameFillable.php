@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\SteamGame;
+use App\Models\PurchaseRecord;
 
 class SteamGameFillable extends Model
 {
@@ -25,5 +26,9 @@ class SteamGameFillable extends Model
 
     public function game() {
         return $this->belongsTo(SteamGame::class, 'appid', 'appid');
+    }
+
+    public function purchaserecords() {
+        return $this->hasMany(PurchaseRecord::class);
     }
 }

@@ -4,24 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\PurchaseRecord_TL;
+use App\Models\SteamGameFillable;
+use App\Models\SteamGame;
 
 class PurchaseRecord extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'appid', // string
-        'recordid', // int
-        
-        'label', //string
+        'appid', // string        
+        'desc', //string
         'cost', // decimal
-        'dlcmtxflag', // boolean
-        'date_obtained' // DD-MM-YYYY
+        'is_initial', // boolean
+        'date_of_purchase' // YYYY-MM-DD
     ];
 
-    public function record_tl()
-    {
-        return $this->hasOne(PurchaseRecord_TL::class, 'recordid', 'recordid');
+    public function game() {
+        return $this->belongsTo(SteamGame::class, 'appid', 'appid');
+    }
+
+    public function fillables() {
+        return $this->belongsTo(SteamGameFillable::class, 'appid', 'appid');
     }
 }
