@@ -49,7 +49,7 @@ class SteamGamesController extends Controller
     {
         return Inertia::render('SteamGame/Index',
         [ 
-            'game' => $game->load('fillables'),
+            'game' => $game->load('fillables', 'purchaserecords'),
         ]);
     }
 

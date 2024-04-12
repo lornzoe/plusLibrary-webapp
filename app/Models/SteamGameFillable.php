@@ -29,6 +29,6 @@ class SteamGameFillable extends Model
     }
 
     public function purchaserecords() {
-        return $this->hasMany(PurchaseRecord::class);
+        return $this->hasMany(PurchaseRecord::class, 'appid', 'appid');
     }
 }

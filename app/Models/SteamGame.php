@@ -4,8 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+
 use App\Models\SteamGameFillable;
 use App\Models\SteamMonthlySnapshot;
+use App\Models\PurchaseRecord;
 
 class SteamGame extends Model
 {
@@ -30,6 +33,11 @@ class SteamGame extends Model
 
     public function snapshots() {
         return $this->hasMany(SteamMonthlySnapshot::class);
+    }
+
+    public function purchaserecords()
+    {
+        return $this->hasManyThrough(PurchaseRecord::class, SteamGameFillable::class, 'appid', 'appid', 'appid', 'appid');
     }
 
     /**

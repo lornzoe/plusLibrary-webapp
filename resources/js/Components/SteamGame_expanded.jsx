@@ -5,12 +5,12 @@ export default function SteamGame_expanded({ steamgame })
 {
     return(
         <>
-        <div className="flex max-w-7xl">
+        <div className="flex max-w-max">
             <div className="block my-auto">
                 <img className="rounded object-cover max-w-[231px]" src={`https://cdn.cloudflare.steamstatic.com/steam/apps/${steamgame.appid}/library_600x900.jpg`}/>
             </div>
         <div className="my-auto">
-            <div className="flex ml-4 p-2 pb-4">
+            <div className="flex ml-4 p-2 pb-4 ">
                 <div className="text-3xl text-gray-800 font-black align-middle">
                     {steamgame.name}
                 </div>
@@ -23,8 +23,8 @@ export default function SteamGame_expanded({ steamgame })
                 </a>
                 </div>   
             </div>
-            <div className="grid grid-rows-2 grid-flow-col mx-auto gap-0 pt-0 flex-initial">
-                    <div className="row-span-2 col-span-2 border grid grid-rows-4 grid-flow-col gap-2 p-4 ml-4 rounded-b">
+            <div className="flex mx-auto ">
+                    <div className=" border grid grid-rows-3 grid-flow-col gap-2 p-4 mx-4 rounded-b">
                         <div className="row-span-3 border grid grid-rows-3 grid-cols-2 w-60">
                             <div className="p-3 place-items-center flex">
                                 <p>playtime</p>
@@ -96,16 +96,16 @@ export default function SteamGame_expanded({ steamgame })
                             </div>
                         </div>
 
-                        <div className="row-span-4 grid grid-rows-4 grid-flow-col gap-0 flex-initial  2xl:w-[40rem]">
-                            <div className="row-span-3 border flex justify-center items-center bg-yellow-100 flex-1 w-32">
-                                <p className="text-3xl font-black text-center">{steamgame.fillables.rating === null ? "-" : steamgame.fillables.rating}</p>
+                        <div className="row-span-4 grid grid-rows-4 grid-flow-col gap-0 flex-1 justify-self-stretch	">
+                            <div className="row-span-3 border flex justify-center items-center bg-yellow-100 flex-1">
+                                 <p className="text-3xl font-black text-center">{steamgame.fillables.rating === null ? "-" : steamgame.fillables.rating}</p>
                             </div>
                             <div className="p-2 pt-2 mt-2  bg-slate-400/[0.3] border w-32">
                                 <p className="text-center text--base">{!steamgame.fillables.completed && "not "} completed</p>
                             </div>
 
-                            <div className="row-span-4 p-4 border flex  overflow-auto w-[18.625rem] 2xl:w-[31.25rem]">
-                                <p className="text-center my-auto">{steamgame.fillables.thoughts}</p>
+                            <div className="row-span-4 p-4 ml-2 border flex justify-self-stretch">
+                                <div className="text-center my-auto	leading-none text-ellipsis grow-0 line-clamp-5">{steamgame.fillables.thoughts}</div>
                             </div>
                         </div>
                     </div>

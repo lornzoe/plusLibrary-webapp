@@ -13,8 +13,16 @@ class DebugPage extends Controller
 {
     public function debugCheck()
     {
+        $appid = '1671200';
+        $game = SteamGame::where('appid', $appid)->first();
+        $fillers = $game->fillables;
+        if ($fillers)
+        {
+            dd($fillers->purchaserecords);
+        }
+ 
         // function here
-        DebugPage::dispatchSteamLibraryCreateMonthlySnapshot();
+        //DebugPage::dispatchSteamLibraryCreateMonthlySnapshot();
         //
         dd("nothing for debugcheck");
     }

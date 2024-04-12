@@ -1,5 +1,7 @@
 import './bootstrap';
 import '../css/app.css';
+import '@radix-ui/themes/styles.css';
+// import { Theme, ThemePanel } from '@radix-ui/themes';
 
 import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/inertia-react';
@@ -14,7 +16,9 @@ createInertiaApp({
     setup({ el, App, props }) {
         const root = createRoot(el);
 
-        root.render(<App {...props} />);
+        root.render(<>
+                <App {...props} />
+        </>);
     },
 });
 
