@@ -14,7 +14,7 @@ export default function SteamGame_overview({ steamgame })
             <img className='rounded' src={`https://cdn.cloudflare.steamstatic.com/steam//apps/${steamgame.appid}/capsule_231x87.jpg`}/>
             </div>
 
-            <div className='flex px-2 text-xl font-black max-w-xs text-ellipsis overflow-hidden align-middle'>{steamgame.name} 
+            <div className='flex px-2 text-xl font-black max-w-xs whitespace-nowrap align-middle'>{steamgame.name} 
             
             <div className="ml-2 my-auto">
                 <a href={route('games.show', [steamgame.appid])}>
