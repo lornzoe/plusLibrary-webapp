@@ -7,7 +7,7 @@ export default function SteamGame_expanded({ steamgame })
         <>
         <div className="flex max-w-max">
             <div className="block my-auto">
-                <img className="rounded object-cover max-w-[231px]" src={`https://cdn.cloudflare.steamstatic.com/steam/apps/${steamgame.appid}/library_600x900.jpg`}/>
+                <img className="rounded object-cover max-w-[235px]" src={`https://cdn.cloudflare.steamstatic.com/steam/apps/${steamgame.appid}/library_600x900.jpg`}/>
             </div>
         <div className="my-auto">
             <div className="flex ml-4 p-2 pb-4 ">
@@ -84,7 +84,7 @@ export default function SteamGame_expanded({ steamgame })
                                 <p className="pl-1">dlc / mtx</p>
                             </div>
                             <div className="m-auto ml-0 pl-1 text-left">
-                                $ {(steamgame.fillables.cost_additional === null ? "0.00" : steamgame.fillables.cost_additional .toFixed(2))} 
+                                $ {(steamgame.fillables.cost_additional === null ? "0.00" : parseFloat(steamgame.fillables.cost_additional).toFixed(2))} 
                             </div>
                         </div>
                         <div className="text-gray-800 border grid grid-rows-1 grid-cols-2 w-60">
