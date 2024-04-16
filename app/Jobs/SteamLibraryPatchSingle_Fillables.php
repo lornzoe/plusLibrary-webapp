@@ -38,7 +38,7 @@ class SteamLibraryPatchSingle_Fillables implements ShouldQueue
         $entry = SteamGameFillable::updateOrCreate(
             ['appid' => $this->container['appid']],
             [
-                'cost_initial' => $this->container['cost_initial'],
+                // 'cost_initial' => $this->container['cost_initial'], // we don't use this anymore, rely on purchase records now
                 'date_obtained' => $this->container['date_obtained'],
                 'rating' => $this->container['rating'], 
                 'thoughts' => $this->container['thoughts'],

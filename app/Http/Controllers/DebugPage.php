@@ -7,11 +7,85 @@ use App\Models\SteamGame;
 use App\Jobs\SteamLibraryPullSingle_Achievements;
 use Carbon\Carbon;
 use App\Models\SteamMonthlySnapshot;
+use App\Models\SteamGameFillable;
+use Illuminate\Support\Facades\DB;
+
 use App\Jobs\SteamLibraryCreateMonthlySnapshot;
+use App\Jobs\SteamLibraryUpdateCosts_Fillables;
 
 class DebugPage extends Controller
 {
+    public function debugaCheck(){
+        // dd(SteamGameFillable::where('appid','1845370')->update([
+        //     'cost_initial' => 0.00,
+        //     'cost_additional' => 0.00]
+        // ));
+        //dd(SteamGameFillable::where('appid','1845370')->first()->purchaserecords);
+        SteamLibraryUpdateCosts_Fillables::dispatch('1845370');
+    }
+
     public function debugCheck()
+    {
+        $arr = [];
+        //massCostEdit
+        $allfillables = SteamGameFillable::with('purchaserecords')->get();
+
+        foreach($allfillables as $fillable)
+        {
+            if ($fillable->purchaserecords->count() > 0)
+                $arr[] = $fillable->getAttribute('appid');
+        }
+        //dd($arr);
+        foreach($arr as $appid)
+        {
+
+            SteamLibraryUpdateCosts_Fillables::dispatch($appid);
+            //costCalculate($)
+        }
+
+        
+    }
+
+    public function costCalculate($appid)
+    {
+        //costcalculator
+        $results = [];
+        $a= false;
+        try 
+        {
+            // get the model
+            $fillable = SteamGameFillable::where('appid', $appid)->first();
+
+            // then we're gonna get the relevant purchase records
+            $records = $fillable->purchaserecords;
+
+            // then we'll add up the relevant rows
+            $init = 0.00;
+            $addit = 0.00;
+            foreach($records as $record)
+            {
+                //$a = $record->getAttribute('is_initial');
+                $record->getAttribute('is_initial') ? $init += $record->cost : $addit += $record->cost;
+
+            }
+
+            // then update the fillable with the updated values
+            $fillable->update([
+                'cost_initial' => $init,
+                'cost_additional' => $addit]
+            );
+
+            $results['init'] = $init;
+            $results['add'] = $addit;
+        }
+        catch(Exception $e)
+        {
+            fail($e);
+        }
+        //dd($results);
+    }
+
+    public function purchaseRecordCheck()
     {
         $appid = '1671200';
         $game = SteamGame::where('appid', $appid)->first();
