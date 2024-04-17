@@ -3,11 +3,17 @@ import { Head } from '@inertiajs/inertia-react';
 import SteamGame_overview from '@/Components/SteamGame_overview';
 import SteamGame_expanded from '@/Components/SteamGame_expanded';
 import PurchaseRecordsTable from '@/Components/PurchaseRecordsTable';
+import PurchaseRecordForm from '@/Components/PurchaseRecordForm';
 import Test from '@/Components/Test';
+import { useState } from 'react';
 import { Table } from '@radix-ui/themes';
  
 export default function Index({auth, game}) {
 
+    const [prInit, setPrInit] = useState({
+        recordid: "",
+        appid: game.appid,
+    })
     // console.log(game);
 
     return (
@@ -30,8 +36,10 @@ export default function Index({auth, game}) {
                         <PurchaseRecordsTable purchaserecords={game.purchaserecords}/>
                     </div>
                     <div>
+                        
                         <Test/>
                     </div>
+                    <PurchaseRecordForm record={prInit}/>
                 </div>
             </div>
         </AuthenticatedLayout>

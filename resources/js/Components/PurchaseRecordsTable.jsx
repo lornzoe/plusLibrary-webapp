@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import * as Checkbox from '@radix-ui/react-checkbox';
 import { CheckIcon } from '@heroicons/react/20/solid';
+import PurchaseRecordForm from './PurchaseRecordForm';
 
 export default function PurchaseRecordsTable ({ purchaserecords }) {
 
-    console.log(purchaserecords);
+    //console.log(purchaserecords);
 
     return (
         <>
@@ -34,7 +35,13 @@ export default function PurchaseRecordsTable ({ purchaserecords }) {
                                 </Checkbox.Indicator>
                             </Checkbox.Root>
                         </td>
-                        <td className='px-6 py-3'></td>
+                        <td className='px-6'><PurchaseRecordForm 
+                        record={{recordid: purchase.id,
+                        appid: purchase.appid,
+                        date: purchase.date_of_purchase,
+                        desc: purchase.desc,
+                        cost: purchase.cost,
+                        is_initial: purchase.is_initial}}/></td>
                     </tr>
                 )}
             </tbody>
