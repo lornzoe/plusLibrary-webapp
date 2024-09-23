@@ -10,7 +10,8 @@ export default function PurchaseRecordForm({record}) {
 
   const [open, setOpen] = useState(false);
   const [checked, setChecked] = useState(record.is_initial? record.is_initial : false);
-  const [formData, setFormData] = useState({
+  
+  const {data, setData, post, processing, errors} = useForm({
     recordid : record.recordid ? record.recordid : "",
     appid : record.appid,
     date : record.date ? record.date : dayjs().format('YYYY-MM-DD'), //
@@ -22,31 +23,31 @@ export default function PurchaseRecordForm({record}) {
   const toggleChecked = () =>
   {
     setChecked(!checked)
-    setFormData({...formData, is_initial: !checked});
+    setData({...data, is_initial: !checked});
   }
 
   const handleChange = (event) => {
     
     if(event.target.name === "date"){
-    setFormData({...formData, [event.target.name]: 
+    setData({...data, [event.target.name]: 
     dayjs(event.target.value).format('YYYY-MM-DD')});
     }
     else{
-      setFormData({...formData, [event.target.name]: event.target.value})
+      setData({...data, [event.target.name]: event.target.value})
     }
     
-    console.log(formData);
+    console.log(data);
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     console.log ("submit:");
-    console.log(formData);
+    console.log(data);
 
-    if (formData.recordid === "") // if we're using the create
+    if (data.recordid === "") // if we're using the create
     {
-      setFormData({...formData, date: dayjs().format('YYYY-MM-DD'), cost: "", desc: "", is_initial: false});
+      setData({...data, date: dayjs().format('YYYY-MM-DD'), cost: "", desc: "", is_initial: false});
       setChecked(false);
     }
 
@@ -59,7 +60,7 @@ export default function PurchaseRecordForm({record}) {
       <div>
         <Dialog.Root open={open} onOpenChange={setOpen}>
           <Dialog.Trigger >
-            {formData.recordid ==="" ?
+            {data.recordid ==="" ?
             <div className="bg-white p-2 border justify-center rounded-lg">Add New</div> :
             <div className={clsx("bg-white  border justify-center rounded-lg",
             "px-5 py-2",
@@ -87,7 +88,8 @@ export default function PurchaseRecordForm({record}) {
                         Record ID
                       </label>
                       <input name="recordid" type="text" placeholder='auto-generated if blank'
-                        className='text-sm text-gray-500 block w-full rounded-md py-1 bg-gray-100' disabled={true} defaultValue={formData.recordid} readOnly/>
+                        className='text-sm text-gray-500 block w-full rounded-md py-1 bg-gray-100' 
+                        disabled={true} defaultValue={data.recordid} readOnly/>
                     </div>
                     <div>
                       <label
@@ -96,7 +98,7 @@ export default function PurchaseRecordForm({record}) {
                       >
                         App ID
                       </label>
-                      <input name="appid" type="text" placeholder={formData.appid}
+                      <input name="appid" type="text" placeholder={data.appid}
                         className='text-sm text-gray-500 block w-full rounded-md py-1 bg-gray-100' disabled={true} readOnly/>
                     </div>
                   </div>
@@ -110,7 +112,7 @@ export default function PurchaseRecordForm({record}) {
                       </label>
                       <input name="date" type="date"
                         className='text-sm block w-full rounded-md py-1' 
-                        defaultValue={formData.date} 
+                        defaultValue={data.date} 
                         onChange={handleChange}></input>
                     </div>
                   </div>
@@ -122,7 +124,7 @@ export default function PurchaseRecordForm({record}) {
                       Description
                     </label>
                     <input name="desc" type="text" placeholder='desc'
-                      value={formData.desc ? formData.desc : ''}
+                      value={data.desc ? data.desc : ''}
                       onChange={handleChange}
                       className='text-sm block w-full rounded-md py-1'></input>
                   </div>
@@ -135,7 +137,7 @@ export default function PurchaseRecordForm({record}) {
                         Cost
                       </label>
                       <input name="cost" type="number" step="0.01" placeholder='$0.00'
-                        value={formData.cost ? formData.cost : ''}
+                        value={data.cost ? data.cost : ''}
                         onChange={handleChange}
                         className='text-sm block w-full rounded-md py-1'></input>
                     </div>
