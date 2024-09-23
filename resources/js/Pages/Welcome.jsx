@@ -123,6 +123,7 @@ export default function Welcome(props) {
                                 <div className="ml-12">
                                     <div className="mt-2 text-gray-600 dark:text-gray-400 text-sm">
                                         10 to add features, 50 to fuck around with configs and see what works
+                                        current version: 20240923
                                     </div>
                                 </div>
                             </div>
