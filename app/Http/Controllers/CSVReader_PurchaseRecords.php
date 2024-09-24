@@ -8,10 +8,11 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\SteamGameFillablesImport;
 // use App\Http\Middleware\VerifyCsrfToken;
 
-use App\Jobs\SteamLibraryCreateSingle_PurchaseRecord;
-use App\Jobs\SteamLibraryUpdateCosts_Fillables;
+// use App\Jobs\SteamLibraryCreateSingle_PurchaseRecord;
+// use App\Jobs\SteamLibraryUpdateCosts_Fillables;
+use App\Jobs\ProcessCSV_PurchaseRecords;
 
-use App\Models\PurchaseRecord;
+//use App\Models\PurchaseRecord;
 
 class CSVReader_PurchaseRecords extends Controller
 {
@@ -31,20 +32,25 @@ class CSVReader_PurchaseRecords extends Controller
     public function store(Request $request)
     {
         $stack = [];
+        //dd($request->all());
+        ProcessCSV_PurchaseRecords::dispatch($request->all());
+
+
         // let's not bother validating until we will need to in the future
-        foreach ($request->all() as $collection)
-        {
-            // dd($collection);
-            foreach ($collection as $container){
-                SteamLibraryCreateSingle_PurchaseRecord::dispatch($container);
-                $stack[] = $container['appid'];
-            }
+
+        // foreach ($request->all() as $collection)
+        // {
             
-            foreach (array_unique($stack) as $appid)
-            {
-                SteamLibraryUpdateCosts_Fillables::dispatch($appid);
-            }
-        }
+        //     // foreach ($collection as $container){
+        //     //     SteamLibraryCreateSingle_PurchaseRecord::dispatch($container);
+        //     //     $stack[] = $container['appid'];
+        //     // }
+            
+        //     // foreach (array_unique($stack) as $appid)
+        //     // {
+        //     //     SteamLibraryUpdateCosts_Fillables::dispatch($appid);
+        //     // }
+        // }
 
         // dd($request->all());
 
