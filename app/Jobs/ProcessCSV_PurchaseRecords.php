@@ -35,7 +35,7 @@ class ProcessCSV_PurchaseRecords implements ShouldQueue
         foreach ($this->collection as $container){
 
             foreach($container as $entry){
-                // SteamLibraryCreateSingle_PurchaseRecord::dispatch($container);
+                SteamLibraryCreateSingle_PurchaseRecord::dispatch($container);
                 $stack[] = $entry["appid"];
             }
         }
