@@ -13,6 +13,8 @@ use App\Models\SteamGame;
 use App\Models\SteamGameFillable;
 use App\Jobs\SteamLibraryPullSingle_Achievements;
 
+use Illuminate\Support\Facades\Log;
+
 /*
 | _1: We're pulling from the API to table steam_games: appid, name, playtime, playtime_2weeks
 | 
@@ -42,21 +44,25 @@ class SteamLibraryPullMultiple_Basic implements ShouldQueue
         {
         $url = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=".env("STEAM_APIKEY")."&steamid=".env("STEAM_USERID")."&include_appinfo=true&include_played_free_games=true";
         $rawgamelist = json_decode(file_get_contents($url), true)['response']['games'];
+        // dd($rawgamelist);
+
         }
         catch (\Exception $e)
         {
             // this is assuming there's no connection to Steam.
             // safely stop the job here.
+            Log::debug("Failed at url-rawgamelist");
             fail($e);
         }
 
         // if we have data, start messing with database
         // query all steam games to be unowned, as we iterate updateOrCreate we set owned to true
-        SteamGame::query()->update(['owned' => 0]);
+        SteamGame::query()->update(['owned' => false]);
         
         // now iterate through $fullgame with updateorcreate
         foreach($rawgamelist as $entry)
         {
+            //Log::debug("going through new entry");
             $game = SteamGame::updateOrCreate(
                 ['appid' => $entry['appid']],
                 [
@@ -64,7 +70,7 @@ class SteamLibraryPullMultiple_Basic implements ShouldQueue
                     'playtime'=> $entry['playtime_forever'],
                     'playtime_2weeks' => isset($entry['playtime_2weeks'])? $entry['playtime_2weeks'] : 0,
 
-                    'owned' => 1
+                    'owned' => true
                 ]
             );
             // first or create the fillable 
