@@ -9,6 +9,7 @@ use App\Imports\SteamGameFillablesImport;
 // use App\Http\Middleware\VerifyCsrfToken;
 
 use App\Jobs\SteamLibraryPatchSingle_Fillables;
+use App\Jobs\ProcessCSV_Fillables;
 use App\Models\SteamGameFillable;
 
 class CSVReader_SteamFillable extends Controller
@@ -52,31 +53,32 @@ class CSVReader_SteamFillable extends Controller
         // let's not bother validating until we will need to in the future
         foreach ($request->all() as $collection)
         {
-            // dd($collection);
-            foreach ($collection as $container){
-                //dd($container);
-                //console.log($container);
-                // try {
-                // $entry = SteamGameFillable::updateOrCreate(
-                //     ['appid' => $container['appid']],
-                //     [
-                //         'cost_initial' => $container['cost_initial'],
-                //         'date_obtained' => $container['date_obtained'],
-                //         'rating' => $container['rating'], 
-                //         'thoughts' => $container['thoughts'],
-                //         'completed' => $container['completed'] 
-                //     ]
-                // );
-                // $entry->save();
-                // // dd($entry);
-                //     }
-                //     catch (\Exception $e){
-                //         dd($container);
-                // }
+            ProcessCSV_Fillables::dispatch($collection);
+            
+            // foreach ($collection as $container){
+            //     //dd($container);
+            //     //console.log($container);
+            //     // try {
+            //     // $entry = SteamGameFillable::updateOrCreate(
+            //     //     ['appid' => $container['appid']],
+            //     //     [
+            //     //         'cost_initial' => $container['cost_initial'],
+            //     //         'date_obtained' => $container['date_obtained'],
+            //     //         'rating' => $container['rating'], 
+            //     //         'thoughts' => $container['thoughts'],
+            //     //         'completed' => $container['completed'] 
+            //     //     ]
+            //     // );
+            //     // $entry->save();
+            //     // // dd($entry);
+            //     //     }
+            //     //     catch (\Exception $e){
+            //     //         dd($container);
+            //     // }
 
-                 SteamLibraryPatchSingle_Fillables::dispatch($container);
+            //      SteamLibraryPatchSingle_Fillables::dispatch($container);
 
-            }
+            // }
             
         }
 

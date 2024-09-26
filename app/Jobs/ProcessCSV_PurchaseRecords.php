@@ -32,13 +32,15 @@ class ProcessCSV_PurchaseRecords implements ShouldQueue
     public function handle(): void
     {
         $stack = [];
-        foreach ($collection as $container){
-            SteamLibraryCreateSingle_PurchaseRecord::dispatch($container);
-            $stack[] = $container['appid'];
+        foreach ($this->collection as $container){
+
+            foreach($container as $entry){
+                // SteamLibraryCreateSingle_PurchaseRecord::dispatch($container);
+                $stack[] = $entry["appid"];
+            }
         }
         
-        foreach (array_unique($stack) as $appid)
-        {
+        foreach (array_unique($stack) as $appid){
             SteamLibraryUpdateCosts_Fillables::dispatch($appid);
         }
     }
